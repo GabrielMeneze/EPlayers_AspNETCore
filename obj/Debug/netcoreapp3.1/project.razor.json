@@ -20556,11 +20556,6 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\000\\Documents\\GitHub\\EPlayers_AspNETCore\\Views\\Home\\Privacy.cshtml",
-      "TargetPath": "Views\\Home\\Privacy.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "c:\\Users\\000\\Documents\\GitHub\\EPlayers_AspNETCore\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
