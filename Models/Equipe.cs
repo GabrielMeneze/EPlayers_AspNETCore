@@ -7,34 +7,47 @@ namespace EPlayers_AspNETCore.Models
 {
     public class Equipe : EPlayersBase, IEquipe
     {
-        public int IdEquipe { get; set; }
+         public int IdEquipe { get; set; }
         public string NomeEquipe { get; set; }
         public string ImagemEquipe { get; set; }
-
         private const string PATH = "Database/equipe.csv";
 
-        public Equipe()
-        {
+        /// <summary>
+        /// metodo construtor
+        /// </summary>
+        public Equipe(){
             CreateFolderAndFile(PATH);
         }
 
-        public void Create(Equipe e)
+        /// <summary>
+        /// metodo para alterar uma equipe
+        /// </summary>
+        /// <param name="e"></param>
+        public void Update(Equipe e)
         {
-            string[] linha = {Preparar(e)};
-            File.AppendAllLines(PATH, linha);
-        }
-        private string Preparar(Equipe e)
-        {
-            return $"{e.IdEquipe};{e.NomeEquipe};{e.ImagemEquipe}";
-        }
-
-        public void Delete(int IdEquipe)
-        {
-             List<string> linhas = ReadAllLinesCSV(PATH);
-            linhas.RemoveAll(x => x.Split(";")[0] == IdEquipe.ToString());
+            List<string> linhas = ReadAllLinesCSV(PATH);
+            linhas.RemoveAll(x => x.Split(";")[0] == e.IdEquipe.ToString());
+            linhas.Add( PrepararLinha(e) );
             RewriteCSV(PATH, linhas);
         }
 
+        /// <summary>
+        /// metodo para criar uma nova equipe 
+        /// </summary>
+        /// <param name="e"></param>
+        public void Create(Equipe e)
+        {
+            string[] linha = { PrepararLinha(e) };
+            File.AppendAllLines(PATH, linha);
+        }
+        private string PrepararLinha(Equipe e){
+            return $"{e.IdEquipe};{e.NomeEquipe};{e.ImagemEquipe}";
+        }
+
+        /// <summary>
+        /// metodo para ler e escrever no csv
+        /// </summary>
+        /// <returns></returns>
         public List<Equipe> ReadAll()
         {
             List<Equipe> equipes = new List<Equipe>();
@@ -51,12 +64,15 @@ namespace EPlayers_AspNETCore.Models
             }
             return equipes;
         }
-
-        public void Update(Equipe e)
+        
+        /// <summary>
+        /// metodo para excluit uma equipe do csv
+        /// </summary>
+        /// <param name="id">id da equipe</param>
+        public void Delete(int id)
         {
             List<string> linhas = ReadAllLinesCSV(PATH);
-            linhas.RemoveAll(x => x.Split(";")[0] == e.IdEquipe.ToString());
-            linhas.Add(Preparar(e));
+            linhas.RemoveAll(x => x.Split(";")[0] == id.ToString());
             RewriteCSV(PATH, linhas);
         }
     }

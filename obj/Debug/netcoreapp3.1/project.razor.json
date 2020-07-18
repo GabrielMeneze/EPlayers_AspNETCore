@@ -20536,6 +20536,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\000\\Documents\\GitHub\\EPlayers_AspNETCore\\Views\\Noticias\\index.cshtml",
+      "TargetPath": "Views\\Noticias\\index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\000\\Documents\\GitHub\\EPlayers_AspNETCore\\Views\\Equipe\\index.cshtml",
+      "TargetPath": "Views\\Equipe\\index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\000\\Documents\\GitHub\\EPlayers_AspNETCore\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"

@@ -6,36 +6,56 @@ using EPlayers_AspNETCore.Interfaces;
 namespace EPlayers_AspNETCore.Models
 {
     public class Noticias : EPlayersBase, INoticias
-    {
+    {   
         public int IdNoticia { get; set; }
         public string Titulo { get; set; }
         public string Texto { get; set; }
         public string Imagem { get; set; }
-        private const string PATH = "Database/noticia.csv";
 
-        public Noticias()
-        {
+        private const string PATH = "Database/noticias.csv";
+
+        /// <summary>
+        /// metodo construtor
+        /// </summary>
+        public Noticias(){
             CreateFolderAndFile(PATH);
         }
 
-        public void Create(Noticias n)
-        {
-            string[] linha = {Preparar(n)};
-            File.AppendAllLines(PATH, linha);
-        }
-
-         private string Preparar(Noticias n)
-        {
-            return $"{n.IdNoticia};{n.Titulo};{n.Texto};{n.Imagem}";
-        }
-
-        public void Delete(int Noticias)
+        /// <summary>
+        /// metodo para alterar algo na noticia
+        /// </summary>
+        /// <param name="n"></param>
+        public void Update(Noticias n)
         {
             List<string> linhas = ReadAllLinesCSV(PATH);
-            linhas.RemoveAll(x => x.Split(";")[0] == IdNoticia.ToString());
+            linhas.RemoveAll(x => x.Split(";")[0] == n.IdNoticia.ToString());
+            linhas.Add( PrepararLinha(n) );
             RewriteCSV(PATH, linhas);
         }
 
+        /// <summary>
+        /// metodo para criar uma nova noticia
+        /// </summary>
+        /// <param name="n"></param>
+        public void Create(Noticias n)
+        {
+            string[] linha = { PrepararLinha(n) };
+            File.AppendAllLines(PATH, linha);
+        }
+
+        /// <summary>
+        /// metodo de prepara a linha do csv
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        private string PrepararLinha(Noticias n){
+            return $"{n.IdNoticia};{n.Titulo};{n.Texto};{n.Imagem}";
+        }
+
+        /// <summary>
+        /// metodo para ler e passar para o csv
+        /// </summary>
+        /// <returns></returns>
         public List<Noticias> ReadAll()
         {
             List<Noticias> noticias = new List<Noticias>();
@@ -54,12 +74,17 @@ namespace EPlayers_AspNETCore.Models
             return noticias;
         }
 
-        public void Update(Noticias n)
+        /// <summary>
+        /// metodo para excluir uma noticia pelo id
+        /// </summary>
+        /// <param name="id">id da noticia</param>
+        public void Delete(int id)
         {
             List<string> linhas = ReadAllLinesCSV(PATH);
-            linhas.RemoveAll(x => x.Split(";")[0] == n.IdNoticia.ToString());
-            linhas.Add(Preparar(n));
+            linhas.RemoveAll(x => x.Split(";")[0] == id.ToString());
             RewriteCSV(PATH, linhas);
         }
+
+       
     }
 }
